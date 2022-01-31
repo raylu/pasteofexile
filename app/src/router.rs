@@ -180,16 +180,19 @@ impl<G: Html> Page<G> {
 
         if let Ok(meta) = page.meta() {
             // TODO: maybe update other metadata
-            web_sys::window()
+            let title = web_sys::window()
                 .unwrap()
                 .document()
                 .unwrap()
                 .head()
                 .unwrap()
                 .query_selector("title")
-                .unwrap()
-                .unwrap()
-                .set_text_content(Some(&meta.title));
+                .unwrap();
+
+            // when running with trunk there is not <title> element
+            if let Some(title) = title {
+                title.set_text_content(Some(&meta.title));
+            }
         }
 
         page

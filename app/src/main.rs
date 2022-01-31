@@ -13,5 +13,5 @@ pub fn main() {
         .unwrap()
         .unwrap();
 
-    sycamore::hydrate_to(|| view! { App(None) }, &root);
+    sycamore::render_to(|| view! { App(None) }, &root);
 }
